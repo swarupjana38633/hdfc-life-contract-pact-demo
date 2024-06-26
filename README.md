@@ -25,6 +25,8 @@ docker-compose up
 
 ### 3. Check Pact Broker is working
 - Open browser and access the link [PactBroker](http://localhost:8000/).
+  - Credential to access the pact broker
+  - username/password :- pact_workshop/pact_workshop
 
 ### 4. Publish the contract pact in Broker
 ```bash
