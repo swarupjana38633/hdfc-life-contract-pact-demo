@@ -45,4 +45,49 @@ mvn clean install
 - Go to browser [PactBroker](http://localhost:8000/).
 - open the Pact Matrix Icon to check the provider result.
 
+### 6. Can I Deploy?
+With just a simple use of the `pact-broker` [can-i-deploy tool](https://docs.pact.io/pact_broker/advanced_topics/provider_verification_results) - the Broker will determine if a consumer or provider is safe to release to the specified environment.
+
+You can run the `pact-broker can-i-deploy` checks as follows:
+
+```console
+❯ docker run --rm --network host \
+  	-e PACT_BROKER_BASE_URL=http://localhost:8000 \
+  	-e PACT_BROKER_USERNAME=pact_workshop \
+  	-e PACT_BROKER_PASSWORD=pact_workshop \
+  	pactfoundation/pact-cli:latest \
+  	broker can-i-deploy \
+  	--pacticipant FetchConsumerApplication \
+  	--latest
+
+
+Computer says yes \o/
+
+CONSUMER            | C.VERSION | PROVIDER       | P.VERSION | SUCCESS?
+--------------------|-----------|----------------|-----------|---------
+FrontendApplication | 2955ca5   | ProductService | 2955ca5   | true
+
+All required verification results are published and successful
+
+
+----------------------------
+
+❯ docker run --rm --network host \
+  	-e PACT_BROKER_BASE_URL=http://localhost:8000 \
+  	-e PACT_BROKER_USERNAME=pact_workshop \
+  	-e PACT_BROKER_PASSWORD=pact_workshop \
+  	pactfoundation/pact-cli:latest \
+  	broker can-i-deploy \
+  	--pacticipant ProductService \
+  	--latest
+
+Computer says yes \o/
+
+CONSUMER            | C.VERSION | PROVIDER       | P.VERSION | SUCCESS?
+--------------------|-----------|----------------|-----------|---------
+FrontendApplication | 2955ca5   | ProductService | 2955ca5   | true
+
+All required verification results are published and successfull
+```
+
 
